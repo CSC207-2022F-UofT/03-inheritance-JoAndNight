@@ -16,7 +16,7 @@ public abstract class Bag {
     private String color;
     private int numberOfContents;
     private int capacity;
-    private final String[] contents;
+    private String[] contents;
 
 
 
@@ -31,7 +31,7 @@ public abstract class Bag {
      */
     public Bag(String color, int capacity) {
         this.numberOfContents = 0;
-        this.contents = new String[this.numberOfContents];
+        this.contents = new String[0];
         this.color = color;
         this.capacity = capacity;
     }
@@ -80,11 +80,14 @@ public abstract class Bag {
      */
     public boolean addItem(String item){
         if (this.getNumberOfContents() < this.getCapacity() ){
-            this.contents[this.getNumberOfContents()] = item;
+            String[] updatedContent = new String[getNumberOfContents() + 1];
+            if (this.getNumberOfContents() >= 0)
+                System.arraycopy(this.contents, 0, updatedContent, 0, this.getNumberOfContents());
+            updatedContent[this.getNumberOfContents()] = item;
+            this.contents = updatedContent;
             this.numberOfContents = this.numberOfContents + 1;
             return true;
-        }
-        return false;
+        }else{return false;}
     }
 
 
@@ -99,12 +102,16 @@ public abstract class Bag {
      *
      * If there are no items in this Bag, return null.
      *
-     * @return
+     * @return returns null if there are no items in this Bag. Otherwise,
+     * return the String that is being removed.
      */
     public String popItem(){
         if (this.getNumberOfContents() > 0){
             String item = this.contents[this.getNumberOfContents() - 1];
-            this.contents[this.getNumberOfContents() - 1] = " ";
+            String[] updateContents = new String[this.getNumberOfContents() - 1];
+            System.arraycopy(this.contents, 0, updateContents, 0,
+                    this.getNumberOfContents() - 1);
+            this.contents = updateContents;
             return item;
         }
 
