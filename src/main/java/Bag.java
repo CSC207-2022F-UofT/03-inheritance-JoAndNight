@@ -84,8 +84,8 @@ public abstract class Bag {
             if (this.getNumberOfContents() >= 0)
                 System.arraycopy(this.contents, 0, updatedContent, 0, this.getNumberOfContents());
             updatedContent[this.getNumberOfContents()] = item;
+            this.numberOfContents = this.getNumberOfContents() + 1;
             this.contents = updatedContent;
-            this.numberOfContents = this.numberOfContents + 1;
             return true;
         }else{return false;}
     }
@@ -111,6 +111,7 @@ public abstract class Bag {
             String[] updateContents = new String[this.getNumberOfContents() - 1];
             System.arraycopy(this.contents, 0, updateContents, 0,
                     this.getNumberOfContents() - 1);
+            this.numberOfContents = this.numberOfContents - 1;
             this.contents = updateContents;
             return item;
         }
